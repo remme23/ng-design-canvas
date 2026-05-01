@@ -40,6 +40,16 @@ export default function Opera() {
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                   />
+                  <video
+                    src={p.videoUrl}
+                    poster={p.posterUrl}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                   <div className="absolute top-6 left-6 flex items-center gap-2">
                     <span className="text-[10px] uppercase tracking-[0.3em] px-3 py-1.5 bg-background/60 backdrop-blur text-foreground border border-border/50">
