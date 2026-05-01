@@ -17,6 +17,17 @@ export type Project = {
   lifeQuality: boolean;
 };
 
+// Video AI generati per progetti specifici
+import villaNeolibertyAsset from "@/assets/video-villa-neoliberty.mp4.asset.json";
+import sedeAmatAsset from "@/assets/video-sede-amat.mp4.asset.json";
+import complessoBardelliniAsset from "@/assets/video-complesso-bardellini.mp4.asset.json";
+
+export const AI_VIDEOS = {
+  villaNeoliberty: villaNeolibertyAsset.url,
+  sedeAmat: sedeAmatAsset.url,
+  complessoBardellini: complessoBardelliniAsset.url,
+};
+
 // Pexels architecture footage (free CDN)
 const VIDEOS = {
   building: "https://videos.pexels.com/video-files/3773486/3773486-uhd_2560_1440_30fps.mp4",
