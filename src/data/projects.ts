@@ -56,7 +56,7 @@ export const projects: Project[] = [
     location: "Capo Berta, Imperia",
     description:
       "Nuova costruzione in zona Capo Berta ad Imperia, in attuazione a Strumento Urbanistico Attuativo. L'area, soggetta a vincolo paesaggistico, ha richiesto un'attenta integrazione tra linguaggio neoliberty e tecnologie contemporanee. La Villa adotta il sistema Life Quality System, marchio dello Studio per il benessere abitativo.",
-    videoUrl: VIDEOS.villa,
+    videoUrl: AI_VIDEOS.villaNeoliberty,
     posterUrl: IMG("1564013799919-ab600027ffc6"),
     gallery: [
       IMG("1564013799919-ab600027ffc6"),
@@ -78,7 +78,7 @@ export const projects: Project[] = [
     importo: "€ 2.856.000",
     description:
       "La realizzazione della nuova sede dell'azienda fonda la sua logica attuativa nella volontà di centralizzare le varie strutture prima sparse sul territorio, ottimizzando la gestione operativa. Categoria prevalente OG1, importo lavori 2.856.000 €. Edificio realizzato nel 2011.",
-    videoUrl: VIDEOS.glassFacade,
+    videoUrl: AI_VIDEOS.sedeAmat,
     posterUrl: IMG("1497366216548-37526070297c"),
     gallery: [
       IMG("1497366216548-37526070297c"),
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     location: "Bardellini, Imperia",
     description:
       "Realizzazione di nuove unità immobiliari in zona Bardellini ad Imperia, in attuazione parziale di Strumento Urbanistico Attuativo di variante. Vincolo paesaggistico ai sensi del D.Lgs. 42/2004. Progetto coordinato dallo Studio in sinergia con OPERA s.r.l.",
-    videoUrl: VIDEOS.construction,
+    videoUrl: AI_VIDEOS.complessoBardellini,
     posterUrl: IMG("1545324418-cc1a3fa10c00"),
     gallery: [
       IMG("1545324418-cc1a3fa10c00"),
