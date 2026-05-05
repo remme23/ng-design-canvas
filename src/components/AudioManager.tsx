@@ -92,11 +92,29 @@ export default function AudioManager() {
     master.gain.value = MIN_GAIN;
     master.connect(ctx.destination);
 
-    const decks: Deck[] = [0, 1].map(() => {
+    const decks: Deck[] = [0, 1].map((idx) => {
       const el = new Audio();
       el.loop = true;
       el.preload = "auto";
       el.crossOrigin = "anonymous";
+      el.addEventListener("error", () => {
+        const failed = el.currentSrc || el.src;
+        console.warn(`[AudioManager] errore caricamento traccia (deck ${idx})`, failed);
+        // marca la sorgente come non disponibile per i prossimi tentativi
+        if (failed) availabilityCache.set(failed, Promise.resolve(false));
+        // tenta fallback se non già in uso
+        if (failed && !failed.endsWith(FALLBACK_SRC)) {
+          checkAvailable(FALLBACK_SRC).then((ok) => {
+            if (!ok) return;
+            try {
+              el.src = FALLBACK_SRC;
+              el.play().catch(() => {});
+            } catch {
+              /* noop */
+            }
+          });
+        }
+      });
       const src = ctx.createMediaElementSource(el);
       const gain = ctx.createGain();
       gain.gain.value = MIN_GAIN;
