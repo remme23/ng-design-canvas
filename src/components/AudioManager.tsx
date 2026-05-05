@@ -24,6 +24,7 @@ function trackFor(pathname: string) {
 
 const TARGET_VOLUME = 0.18;
 const FADE_SEC = 1.4;
+const INITIAL_FADE_SEC = 3.5; // fade-in più morbido al primo abilitamento
 const MIN_GAIN = 0.0001; // setTargetAtTime non accetta 0
 
 type Deck = {
