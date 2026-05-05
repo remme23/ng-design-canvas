@@ -103,6 +103,25 @@ export default function AudioManager() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled]);
 
+  // Fade-in graduale del master al primo enable
+  const firstEnableRef = useRef(true);
+  useEffect(() => {
+    if (!enabled) return;
+    const ctx = ctxRef.current;
+    const master = masterRef.current;
+    if (!ctx || !master) return;
+    if (!firstEnableRef.current) return;
+    firstEnableRef.current = false;
+    const now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(MIN_GAIN, now);
+    // Rampa esponenziale dolce verso il volume finale (rispetta il mute)
+    master.gain.exponentialRampToValueAtTime(
+      muted ? MIN_GAIN : 1,
+      now + INITIAL_FADE_SEC,
+    );
+  }, [enabled, muted]);
+
   // Crossfade su cambio route
   useEffect(() => {
     if (!enabled) return;
