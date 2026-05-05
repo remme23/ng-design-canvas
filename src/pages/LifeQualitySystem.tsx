@@ -99,14 +99,9 @@ export default function LifeQualitySystem() {
             <Reveal key={p.slug} delay={i * 0.1}>
               <Link to={`/opera/${p.slug}`} className="group block">
                 <div className="relative aspect-[4/5] overflow-hidden bg-surface mb-4">
-                  <video
+                  <LazyVideo
                     src={p.videoUrl}
                     poster={p.posterUrl}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
