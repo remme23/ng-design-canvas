@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import LazyVideo from "@/components/LazyVideo";
 import { projects } from "@/data/projects";
 
 const principles = [
