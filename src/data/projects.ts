@@ -37,7 +37,7 @@ const VIDEOS = {
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
-const FRAME = (slug: string, i: 1 | 2 | 3 | 4) => `/frames/${slug}-${i}.jpg`;
+const FRAME = (slug: string, i: 1 | 2 | 3 | 4) => `/frames/${slug}-${i}.webp`;
 
 const IMG = (q: string) =>
   `https://images.unsplash.com/photo-${q}?auto=format&fit=crop&w=1920&q=80`;
