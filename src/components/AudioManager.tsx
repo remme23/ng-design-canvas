@@ -93,6 +93,11 @@ export default function AudioManager() {
     master.gain.value = MIN_GAIN;
     master.connect(ctx.destination);
 
+    // Nodo dedicato alla modulazione dinamica (scroll/interazione)
+    const dyn = ctx.createGain();
+    dyn.gain.value = 1;
+    dyn.connect(master);
+
     const decks: Deck[] = [0, 1].map((idx) => {
       const el = new Audio();
       el.loop = true;
@@ -101,9 +106,7 @@ export default function AudioManager() {
       el.addEventListener("error", () => {
         const failed = el.currentSrc || el.src;
         console.warn(`[AudioManager] errore caricamento traccia (deck ${idx})`, failed);
-        // marca la sorgente come non disponibile per i prossimi tentativi
         if (failed) availabilityCache.set(failed, Promise.resolve(false));
-        // tenta fallback se non già in uso
         if (failed && !failed.endsWith(FALLBACK_SRC)) {
           checkAvailable(FALLBACK_SRC).then((ok) => {
             if (!ok) return;
@@ -119,12 +122,13 @@ export default function AudioManager() {
       const src = ctx.createMediaElementSource(el);
       const gain = ctx.createGain();
       gain.gain.value = MIN_GAIN;
-      src.connect(gain).connect(master);
+      src.connect(gain).connect(dyn);
       return { el, src, gain, currentSrc: "" };
     });
 
     ctxRef.current = ctx;
     masterRef.current = master;
+    dynRef.current = dyn;
     decksRef.current = decks;
   };
 
