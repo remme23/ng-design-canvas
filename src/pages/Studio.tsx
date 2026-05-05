@@ -26,7 +26,7 @@ export default function Studio() {
               <div className="relative aspect-[3/4] overflow-hidden bg-surface">
                 <LazyVideo
                   src="/videos/studio.mp4"
-                  poster="/frames/studio.jpg"
+                  poster="/frames/studio.webp"
                   className="w-full h-full object-cover"
                 />
               </div>

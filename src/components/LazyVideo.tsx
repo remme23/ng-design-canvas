@@ -70,6 +70,7 @@ export default function LazyVideo({ src, poster, className }: Props) {
         loop
         playsInline
         preload="none"
+        disableRemotePlayback
         onCanPlay={() => setReady(true)}
         className={className}
       />
