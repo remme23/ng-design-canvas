@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import LazyVideo from "@/components/LazyVideo";
 import { projects } from "@/data/projects";
 
 export default function Opera() {
@@ -34,14 +35,9 @@ export default function Opera() {
             >
               <Link to={`/opera/${p.slug}`} className="group block">
                 <div className="relative overflow-hidden aspect-[4/5] bg-surface mb-6">
-                  <video
+                  <LazyVideo
                     src={p.videoUrl}
                     poster={p.posterUrl}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
