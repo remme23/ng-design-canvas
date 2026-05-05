@@ -45,6 +45,9 @@ const VIDEOS = {
   cityArch: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
 };
 
+// Frame estratti dai video AI - garantiscono coerenza visiva con il video
+const FRAME = (slug: string, i: 1 | 2 | 3 | 4) => `/frames/${slug}-${i}.jpg`;
+
 const IMG = (q: string) =>
   `https://images.unsplash.com/photo-${q}?auto=format&fit=crop&w=1920&q=80`;
 
