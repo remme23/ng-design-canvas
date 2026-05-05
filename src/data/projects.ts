@@ -64,12 +64,12 @@ export const projects: Project[] = [
     description:
       "Nuova costruzione in zona Capo Berta ad Imperia, in attuazione a Strumento Urbanistico Attuativo. L'area, soggetta a vincolo paesaggistico, ha richiesto un'attenta integrazione tra linguaggio neoliberty e tecnologie contemporanee. La Villa adotta il sistema Life Quality System, marchio dello Studio per il benessere abitativo.",
     videoUrl: AI_VIDEOS.villaNeoliberty,
-    posterUrl: IMG("1564013799919-ab600027ffc6"),
+    posterUrl: FRAME("villa-neoliberty", 1),
     gallery: [
-      IMG("1564013799919-ab600027ffc6"),
-      IMG("1600585154340-be6161a56a0c"),
-      IMG("1600566753190-17f0baa2a6c3"),
-      IMG("1613490493576-7fde63acd811"),
+      FRAME("villa-neoliberty", 1),
+      FRAME("villa-neoliberty", 2),
+      FRAME("villa-neoliberty", 3),
+      FRAME("villa-neoliberty", 4),
     ],
     lifeQuality: true,
   },
