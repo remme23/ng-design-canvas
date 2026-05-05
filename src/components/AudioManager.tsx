@@ -3,10 +3,11 @@ import { useLocation } from "react-router-dom";
 import { Volume2, VolumeX } from "lucide-react";
 
 /**
- * Riproduce un loop ambient diverso per ogni sezione del sito.
- * - Parte automaticamente al primo click dell'utente (policy autoplay)
- * - Cambia traccia con crossfade quando cambia la route
- * - Pulsante mute/unmute fisso in basso a destra
+ * Audio ambient per sezione con crossfade equal-power via WebAudio.
+ * - Niente click: rampe esponenziali sui GainNode
+ * - Cambi rapidi di route gestiti: il fade in corso viene annullato e
+ *   ripreso dal volume corrente verso il nuovo target
+ * - Parte al primo gesto utente (policy autoplay)
  */
 
 const ROUTE_TRACKS: { match: RegExp; src: string }[] = [
@@ -22,36 +23,59 @@ function trackFor(pathname: string) {
 }
 
 const TARGET_VOLUME = 0.18;
-const FADE_MS = 1200;
+const FADE_SEC = 1.4;
+const MIN_GAIN = 0.0001; // setTargetAtTime non accetta 0
+
+type Deck = {
+  el: HTMLAudioElement;
+  src: MediaElementAudioSourceNode;
+  gain: GainNode;
+  currentSrc: string;
+};
 
 export default function AudioManager() {
   const location = useLocation();
-  const aRef = useRef<HTMLAudioElement | null>(null);
-  const bRef = useRef<HTMLAudioElement | null>(null);
-  const activeRef = useRef<"a" | "b">("a");
+  const ctxRef = useRef<AudioContext | null>(null);
+  const masterRef = useRef<GainNode | null>(null);
+  const decksRef = useRef<Deck[]>([]);
+  const activeIdxRef = useRef(0);
   const [enabled, setEnabled] = useState(false);
   const [muted, setMuted] = useState(false);
-  const currentSrc = useRef<string>("");
 
-  // crea i due elementi audio una sola volta
-  useEffect(() => {
-    aRef.current = new Audio();
-    bRef.current = new Audio();
-    [aRef.current, bRef.current].forEach((a) => {
-      a.loop = true;
-      a.preload = "auto";
-      a.volume = 0;
+  // Inizializza WebAudio dopo il primo gesto
+  const ensureAudio = () => {
+    if (ctxRef.current) return;
+    const Ctx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const ctx = new Ctx();
+    const master = ctx.createGain();
+    master.gain.value = muted ? MIN_GAIN : 1;
+    master.connect(ctx.destination);
+
+    const decks: Deck[] = [0, 1].map(() => {
+      const el = new Audio();
+      el.loop = true;
+      el.preload = "auto";
+      el.crossOrigin = "anonymous";
+      const src = ctx.createMediaElementSource(el);
+      const gain = ctx.createGain();
+      gain.gain.value = MIN_GAIN;
+      src.connect(gain).connect(master);
+      return { el, src, gain, currentSrc: "" };
     });
-    return () => {
-      aRef.current?.pause();
-      bRef.current?.pause();
-    };
-  }, []);
 
-  // prima interazione utente -> abilita audio
+    ctxRef.current = ctx;
+    masterRef.current = master;
+    decksRef.current = decks;
+  };
+
+  // Prima interazione utente
   useEffect(() => {
     if (enabled) return;
     const enable = () => {
+      ensureAudio();
+      ctxRef.current?.resume();
       setEnabled(true);
       window.removeEventListener("pointerdown", enable);
       window.removeEventListener("keydown", enable);
@@ -62,57 +86,85 @@ export default function AudioManager() {
       window.removeEventListener("pointerdown", enable);
       window.removeEventListener("keydown", enable);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled]);
 
-  // gestisce play + crossfade quando cambia route o quando si abilita
+  // Crossfade su cambio route
   useEffect(() => {
     if (!enabled) return;
+    const ctx = ctxRef.current;
+    const decks = decksRef.current;
+    if (!ctx || decks.length < 2) return;
+
     const next = trackFor(location.pathname);
-    if (next === currentSrc.current) return;
+    const active = decks[activeIdxRef.current];
+    if (active.currentSrc === next) return;
 
-    const fromKey = activeRef.current;
-    const toKey = fromKey === "a" ? "b" : "a";
-    const from = fromKey === "a" ? aRef.current! : bRef.current!;
-    const to = toKey === "a" ? aRef.current! : bRef.current!;
+    const incomingIdx = activeIdxRef.current === 0 ? 1 : 0;
+    const incoming = decks[incomingIdx];
+    const outgoing = active;
 
-    to.src = next;
-    to.currentTime = 0;
-    to.volume = 0;
-    const playPromise = to.play();
+    // Carica nuova traccia sul deck inattivo
+    if (incoming.currentSrc !== next) {
+      incoming.el.src = next;
+      incoming.currentSrc = next;
+    }
+    try {
+      incoming.el.currentTime = 0;
+    } catch {
+      /* noop */
+    }
+    const playPromise = incoming.el.play();
     if (playPromise) playPromise.catch(() => {});
 
-    const target = muted ? 0 : TARGET_VOLUME;
-    const steps = 24;
-    const stepMs = FADE_MS / steps;
-    let i = 0;
-    const fade = setInterval(() => {
-      i++;
-      const k = i / steps;
-      to.volume = Math.min(target * k, target);
-      from.volume = Math.max(target * (1 - k), 0);
-      if (i >= steps) {
-        clearInterval(fade);
-        from.pause();
+    const now = ctx.currentTime;
+    const target = TARGET_VOLUME;
+    const tau = FADE_SEC / 4; // setTargetAtTime "time constant" (~98% in 4*tau)
+
+    // Cancella eventuali rampe in corso e riparte dal valore corrente
+    incoming.gain.gain.cancelScheduledValues(now);
+    outgoing.gain.gain.cancelScheduledValues(now);
+    incoming.gain.gain.setValueAtTime(Math.max(incoming.gain.gain.value, MIN_GAIN), now);
+    outgoing.gain.gain.setValueAtTime(Math.max(outgoing.gain.gain.value, MIN_GAIN), now);
+
+    incoming.gain.gain.setTargetAtTime(target, now, tau);
+    outgoing.gain.gain.setTargetAtTime(MIN_GAIN, now, tau);
+
+    activeIdxRef.current = incomingIdx;
+
+    // Pausa il deck uscente quando il fade è praticamente concluso
+    const stopMs = FADE_SEC * 1000 + 200;
+    const stopTimer = window.setTimeout(() => {
+      // se nel frattempo è tornato attivo (route rapida), non fermarlo
+      if (decks[activeIdxRef.current] !== outgoing) {
+        try {
+          outgoing.el.pause();
+        } catch {
+          /* noop */
+        }
       }
-    }, stepMs);
+    }, stopMs);
 
-    activeRef.current = toKey;
-    currentSrc.current = next;
+    return () => window.clearTimeout(stopTimer);
+  }, [enabled, location.pathname]);
 
-    return () => clearInterval(fade);
-  }, [enabled, location.pathname, muted]);
-
-  // muta/smuta in tempo reale
+  // Mute/unmute via master gain (rampa breve, niente click)
   useEffect(() => {
-    const active = activeRef.current === "a" ? aRef.current : bRef.current;
-    if (!active) return;
-    active.volume = muted ? 0 : TARGET_VOLUME;
+    const ctx = ctxRef.current;
+    const master = masterRef.current;
+    if (!ctx || !master) return;
+    const now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(Math.max(master.gain.value, MIN_GAIN), now);
+    master.gain.setTargetAtTime(muted ? MIN_GAIN : 1, now, 0.05);
   }, [muted]);
 
   return (
     <button
       type="button"
       onClick={() => {
+        ensureAudio();
+        ctxRef.current?.resume();
         if (!enabled) setEnabled(true);
         setMuted((m) => !m);
       }}
