@@ -40,7 +40,19 @@ export default function AudioManager() {
   const decksRef = useRef<Deck[]>([]);
   const activeIdxRef = useRef(0);
   const [enabled, setEnabled] = useState(false);
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.localStorage.getItem("audio:muted") === "1";
+  });
+
+  // Persisti preferenza mute
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("audio:muted", muted ? "1" : "0");
+    } catch {
+      /* noop */
+    }
+  }, [muted]);
 
   // Inizializza WebAudio dopo il primo gesto
   const ensureAudio = () => {
