@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import LazyVideo from "@/components/LazyVideo";
 import { featuredProjects, HERO_VIDEO, HERO_POSTER } from "@/data/projects";
 
 export default function Index() {
