@@ -233,12 +233,12 @@ export const projects: Project[] = [
     description:
       "Nuovo alloggio progettato secondo i principi del Life Quality System: ottimizzazione termica, ventilazione naturale, materiali certificati, domotica integrata. Inserimento paesaggistico curato con orientamento solare ottimale.",
     videoUrl: AI_VIDEOS.alloggioBardellini,
-    posterUrl: IMG("1600607687939-ce8a6c25118c"),
+    posterUrl: FRAME("alloggio-bardellini", 1),
     gallery: [
-      IMG("1600607687939-ce8a6c25118c"),
-      IMG("1600566753051-6057eed29f7d"),
-      IMG("1600585152915-d208bec867a1"),
-      IMG("1600566752355-35792bedcfea"),
+      FRAME("alloggio-bardellini", 1),
+      FRAME("alloggio-bardellini", 2),
+      FRAME("alloggio-bardellini", 3),
+      FRAME("alloggio-bardellini", 4),
     ],
     lifeQuality: true,
   },
