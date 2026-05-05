@@ -63,6 +63,7 @@ export default function AudioManager() {
   const location = useLocation();
   const ctxRef = useRef<AudioContext | null>(null);
   const masterRef = useRef<GainNode | null>(null);
+  const dynRef = useRef<GainNode | null>(null);
   const decksRef = useRef<Deck[]>([]);
   const activeIdxRef = useRef(0);
   const [enabled, setEnabled] = useState(false);
@@ -92,6 +93,11 @@ export default function AudioManager() {
     master.gain.value = MIN_GAIN;
     master.connect(ctx.destination);
 
+    // Nodo dedicato alla modulazione dinamica (scroll/interazione)
+    const dyn = ctx.createGain();
+    dyn.gain.value = 1;
+    dyn.connect(master);
+
     const decks: Deck[] = [0, 1].map((idx) => {
       const el = new Audio();
       el.loop = true;
@@ -100,9 +106,7 @@ export default function AudioManager() {
       el.addEventListener("error", () => {
         const failed = el.currentSrc || el.src;
         console.warn(`[AudioManager] errore caricamento traccia (deck ${idx})`, failed);
-        // marca la sorgente come non disponibile per i prossimi tentativi
         if (failed) availabilityCache.set(failed, Promise.resolve(false));
-        // tenta fallback se non già in uso
         if (failed && !failed.endsWith(FALLBACK_SRC)) {
           checkAvailable(FALLBACK_SRC).then((ok) => {
             if (!ok) return;
@@ -118,12 +122,13 @@ export default function AudioManager() {
       const src = ctx.createMediaElementSource(el);
       const gain = ctx.createGain();
       gain.gain.value = MIN_GAIN;
-      src.connect(gain).connect(master);
+      src.connect(gain).connect(dyn);
       return { el, src, gain, currentSrc: "" };
     });
 
     ctxRef.current = ctx;
     masterRef.current = master;
+    dynRef.current = dyn;
     decksRef.current = decks;
   };
 
@@ -241,6 +246,73 @@ export default function AudioManager() {
     master.gain.setValueAtTime(Math.max(master.gain.value, MIN_GAIN), now);
     master.gain.setTargetAtTime(muted ? MIN_GAIN : 1, now, 0.05);
   }, [muted]);
+
+  // Modulazione dinamica del volume in base a scroll e interazione utente.
+  // - Scroll vicino al top: volume pieno
+  // - Scroll profondo: ducking graduale fino a 0.55x per non disturbare la lettura
+  // - Click utente: brevissima enfasi (1.12x) che poi rientra
+  useEffect(() => {
+    if (!enabled) return;
+    const ctx = ctxRef.current;
+    const dyn = dynRef.current;
+    if (!ctx || !dyn) return;
+
+    const SCROLL_FULL = 1;
+    const SCROLL_DUCKED = 0.55;
+    const ACCENT = 1.12;
+    const ACCENT_DECAY = 1.2; // sec
+    const SCROLL_TAU = 0.25;
+
+    let accentUntil = 0;
+    let raf = 0;
+    let lastScrollFactor = 1;
+
+    const computeScrollFactor = () => {
+      const doc = document.documentElement;
+      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const ratio = Math.min(1, Math.max(0, window.scrollY / max));
+      // ease-out: scende più rapido all'inizio, poi si stabilizza
+      const eased = 1 - Math.pow(1 - ratio, 2);
+      return SCROLL_FULL + (SCROLL_DUCKED - SCROLL_FULL) * eased;
+    };
+
+    const apply = () => {
+      const now = ctx.currentTime;
+      const accentBoost = now < accentUntil
+        ? 1 + (ACCENT - 1) * ((accentUntil - now) / ACCENT_DECAY)
+        : 1;
+      const target = Math.max(MIN_GAIN, lastScrollFactor * accentBoost);
+      dyn.gain.cancelScheduledValues(now);
+      dyn.gain.setValueAtTime(Math.max(dyn.gain.value, MIN_GAIN), now);
+      dyn.gain.setTargetAtTime(target, now, SCROLL_TAU);
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        lastScrollFactor = computeScrollFactor();
+        apply();
+      });
+    };
+
+    const onClick = () => {
+      accentUntil = ctx.currentTime + ACCENT_DECAY;
+      apply();
+    };
+
+    // valori iniziali coerenti con la posizione corrente
+    lastScrollFactor = computeScrollFactor();
+    apply();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointerdown", onClick);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointerdown", onClick);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [enabled, location.pathname]);
 
   return (
     <button
