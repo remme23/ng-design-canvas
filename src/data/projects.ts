@@ -17,23 +17,32 @@ export type Project = {
   lifeQuality: boolean;
 };
 
-// Video ottimizzati (720p H.264 faststart, ~1-2 MB ciascuno) serviti da /public/videos
-const V = (name: string) => `/videos/${name}.mp4`;
+// Video 1080p generati con AI, serviti via CDN
+import villaNeolibertyAsset from "../../public/videos/villa-neoliberty.mp4.asset.json";
+import sedeAmatAsset from "../../public/videos/sede-amat.mp4.asset.json";
+import complessoBardelliniAsset from "../../public/videos/complesso-bardellini.mp4.asset.json";
+import edificioCommercialeAsset from "../../public/videos/edificio-commerciale.mp4.asset.json";
+import atticoPortoMaurizioAsset from "../../public/videos/attico-porto-maurizio.mp4.asset.json";
+import palazzoLavagnaAsset from "../../public/videos/palazzo-lavagna.mp4.asset.json";
+import areaExNovaAsset from "../../public/videos/area-ex-nova.mp4.asset.json";
+import complessoPontedassioAsset from "../../public/videos/complesso-pontedassio.mp4.asset.json";
+import alloggioBardelliniAsset from "../../public/videos/alloggio-bardellini.mp4.asset.json";
+import heroAsset from "../../public/videos/hero.mp4.asset.json";
 
 export const AI_VIDEOS = {
-  villaNeoliberty: V("villa-neoliberty"),
-  sedeAmat: V("sede-amat"),
-  complessoBardellini: V("complesso-bardellini"),
-  edificioCommerciale: V("edificio-commerciale"),
-  atticoPortoMaurizio: V("attico-porto-maurizio"),
-  palazzoLavagna: V("palazzo-lavagna"),
-  areaExNova: V("area-ex-nova"),
-  complessoPontedassio: V("complesso-pontedassio"),
-  alloggioBardellini: V("alloggio-bardellini"),
+  villaNeoliberty: villaNeolibertyAsset.url,
+  sedeAmat: sedeAmatAsset.url,
+  complessoBardellini: complessoBardelliniAsset.url,
+  edificioCommerciale: edificioCommercialeAsset.url,
+  atticoPortoMaurizio: atticoPortoMaurizioAsset.url,
+  palazzoLavagna: palazzoLavagnaAsset.url,
+  areaExNova: areaExNovaAsset.url,
+  complessoPontedassio: complessoPontedassioAsset.url,
+  alloggioBardellini: alloggioBardelliniAsset.url,
 };
 
 const VIDEOS = {
-  hero: V("hero"),
+  hero: heroAsset.url,
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
