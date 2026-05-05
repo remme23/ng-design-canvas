@@ -23,15 +23,10 @@ export default function Studio() {
         <div className="grid md:grid-cols-12 gap-12">
           <div className="md:col-span-5">
             <Reveal>
-              <div className="aspect-[3/4] overflow-hidden bg-surface">
-                <video
-                  src={studioVideoAsset.url}
+              <div className="relative aspect-[3/4] overflow-hidden bg-surface">
+                <LazyVideo
+                  src="/videos/studio.mp4"
                   poster="/frames/studio.jpg"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
                   className="w-full h-full object-cover"
                 />
               </div>
