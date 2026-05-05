@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import LazyVideo from "@/components/LazyVideo";
 import { featuredProjects, HERO_VIDEO, HERO_POSTER } from "@/data/projects";
 
 export default function Index() {
@@ -249,9 +250,9 @@ export default function Index() {
             >
               <Link to={`/opera/${p.slug}`} className="group block">
                 <div className="relative overflow-hidden aspect-[4/5] mb-6 bg-surface">
-                  <img
-                    src={p.posterUrl}
-                    alt={p.title}
+                  <LazyVideo
+                    src={p.videoUrl}
+                    poster={p.posterUrl}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-700" />
