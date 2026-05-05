@@ -107,12 +107,12 @@ export const projects: Project[] = [
     description:
       "Realizzazione di nuove unità immobiliari in zona Bardellini ad Imperia, in attuazione parziale di Strumento Urbanistico Attuativo di variante. Vincolo paesaggistico ai sensi del D.Lgs. 42/2004. Progetto coordinato dallo Studio in sinergia con OPERA s.r.l.",
     videoUrl: AI_VIDEOS.complessoBardellini,
-    posterUrl: IMG("1545324418-cc1a3fa10c00"),
+    posterUrl: FRAME("complesso-bardellini", 1),
     gallery: [
-      IMG("1545324418-cc1a3fa10c00"),
-      IMG("1503387762-592deb58ef4e"),
-      IMG("1597047084897-51e81819a499"),
-      IMG("1486406146926-c627a92ad1ab"),
+      FRAME("complesso-bardellini", 1),
+      FRAME("complesso-bardellini", 2),
+      FRAME("complesso-bardellini", 3),
+      FRAME("complesso-bardellini", 4),
     ],
     lifeQuality: false,
   },
