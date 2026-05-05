@@ -41,9 +41,9 @@ export const AI_VIDEOS = {
   alloggioBardellini: alloggioBardelliniAsset.url,
 };
 
-// Hero stock fallback (Pexels)
+// Hero video AI generato (coerente con il resto del sito)
 const VIDEOS = {
-  cityArch: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+  hero: heroAsset.url,
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
