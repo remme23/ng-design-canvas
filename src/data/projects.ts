@@ -212,12 +212,12 @@ export const projects: Project[] = [
     description:
       "Realizzazione di complesso produttivo nel Comune di Pontedassio. Progetto incentrato su efficienza distributiva, integrazione paesaggistica e flessibilità degli spazi produttivi.",
     videoUrl: AI_VIDEOS.complessoPontedassio,
-    posterUrl: IMG("1565008447742-97f6f38c985c"),
+    posterUrl: FRAME("complesso-pontedassio", 1),
     gallery: [
-      IMG("1565008447742-97f6f38c985c"),
-      IMG("1565538810643-b5bdb714032a"),
-      IMG("1581092160562-40aa08e78837"),
-      IMG("1597047084897-51e81819a499"),
+      FRAME("complesso-pontedassio", 1),
+      FRAME("complesso-pontedassio", 2),
+      FRAME("complesso-pontedassio", 3),
+      FRAME("complesso-pontedassio", 4),
     ],
     lifeQuality: false,
   },
