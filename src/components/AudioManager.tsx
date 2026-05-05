@@ -18,8 +18,33 @@ const ROUTE_TRACKS: { match: RegExp; src: string }[] = [
   { match: /.*/, src: "/audio/home.mp3" },
 ];
 
+const FALLBACK_SRC = "/audio/home.mp3";
+
 function trackFor(pathname: string) {
   return ROUTE_TRACKS.find((t) => t.match.test(pathname))!.src;
+}
+
+// Cache dei risultati: src -> esiste/no. Promise per evitare fetch concorrenti.
+const availabilityCache = new Map<string, Promise<boolean>>();
+
+function checkAvailable(src: string): Promise<boolean> {
+  let p = availabilityCache.get(src);
+  if (p) return p;
+  p = fetch(src, { method: "HEAD" })
+    .then((r) => r.ok)
+    .catch(() => false);
+  availabilityCache.set(src, p);
+  return p;
+}
+
+async function resolveSrc(preferred: string): Promise<string | null> {
+  if (await checkAvailable(preferred)) return preferred;
+  if (preferred !== FALLBACK_SRC && (await checkAvailable(FALLBACK_SRC))) {
+    console.warn(`[AudioManager] "${preferred}" non disponibile, uso fallback ${FALLBACK_SRC}`);
+    return FALLBACK_SRC;
+  }
+  console.warn(`[AudioManager] nessuna traccia audio disponibile per ${preferred}`);
+  return null;
 }
 
 const TARGET_VOLUME = 0.18;
