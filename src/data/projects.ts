@@ -17,28 +17,32 @@ export type Project = {
   lifeQuality: boolean;
 };
 
-// Video AI generati per progetti specifici
+// Video AI generati per ogni progetto
 import villaNeolibertyAsset from "@/assets/video-villa-neoliberty.mp4.asset.json";
 import sedeAmatAsset from "@/assets/video-sede-amat.mp4.asset.json";
 import complessoBardelliniAsset from "@/assets/video-complesso-bardellini.mp4.asset.json";
+import edificioCommercialeAsset from "@/assets/video-edificio-commerciale.mp4.asset.json";
+import atticoPortoMaurizioAsset from "@/assets/video-attico-porto-maurizio.mp4.asset.json";
+import palazzoLavagnaAsset from "@/assets/video-palazzo-lavagna.mp4.asset.json";
+import areaExNovaAsset from "@/assets/video-area-ex-nova.mp4.asset.json";
+import complessoPontedassioAsset from "@/assets/video-complesso-pontedassio.mp4.asset.json";
+import alloggioBardelliniAsset from "@/assets/video-alloggio-bardellini.mp4.asset.json";
 
 export const AI_VIDEOS = {
   villaNeoliberty: villaNeolibertyAsset.url,
   sedeAmat: sedeAmatAsset.url,
   complessoBardellini: complessoBardelliniAsset.url,
+  edificioCommerciale: edificioCommercialeAsset.url,
+  atticoPortoMaurizio: atticoPortoMaurizioAsset.url,
+  palazzoLavagna: palazzoLavagnaAsset.url,
+  areaExNova: areaExNovaAsset.url,
+  complessoPontedassio: complessoPontedassioAsset.url,
+  alloggioBardellini: alloggioBardelliniAsset.url,
 };
 
-// Pexels architecture footage (free CDN)
+// Hero stock fallback (Pexels)
 const VIDEOS = {
-  building: "https://videos.pexels.com/video-files/3773486/3773486-uhd_2560_1440_30fps.mp4",
-  modernHouse: "https://videos.pexels.com/video-files/4770068/4770068-hd_1920_1080_30fps.mp4",
   cityArch: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
-  interior: "https://videos.pexels.com/video-files/7578552/7578552-uhd_2560_1440_30fps.mp4",
-  blueprint: "https://videos.pexels.com/video-files/8961583/8961583-hd_1920_1080_25fps.mp4",
-  glassFacade: "https://videos.pexels.com/video-files/5158602/5158602-uhd_2732_1440_25fps.mp4",
-  villa: "https://videos.pexels.com/video-files/6263099/6263099-uhd_2560_1440_30fps.mp4",
-  construction: "https://videos.pexels.com/video-files/4480534/4480534-uhd_2560_1440_25fps.mp4",
-  restoration: "https://videos.pexels.com/video-files/4763824/4763824-hd_1920_1080_25fps.mp4",
 };
 
 const IMG = (q: string) =>
@@ -120,7 +124,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Edificio per attività commerciali e direzionali ad Imperia, progettato secondo i principi del Life Quality System. Studio dell'inserimento ambientale tramite fotomontaggi e modellazione tridimensionale, con attenzione a flessibilità degli spazi e sostenibilità.",
-    videoUrl: VIDEOS.cityArch,
+    videoUrl: AI_VIDEOS.edificioCommerciale,
     posterUrl: IMG("1486406146926-c627a92ad1ab"),
     gallery: [
       IMG("1486406146926-c627a92ad1ab"),
@@ -141,7 +145,7 @@ export const projects: Project[] = [
     location: "Porto Maurizio, Imperia",
     description:
       "Ristrutturazione integrale di attico panoramico nel centro storico di Porto Maurizio. Applicazione completa del Life Quality System con domotica, isolamento avanzato e illuminazione progettata. Reinterpretazione contemporanea dello spazio storico.",
-    videoUrl: VIDEOS.interior,
+    videoUrl: AI_VIDEOS.atticoPortoMaurizio,
     posterUrl: IMG("1502672260266-1c1ef2d93688"),
     gallery: [
       IMG("1502672260266-1c1ef2d93688"),
@@ -162,7 +166,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Restauro conservativo di alloggio al piano terra di Palazzo Lavagna. Recupero degli elementi storici originali — volte, pavimenti, decori — coordinato con interventi di adeguamento impiantistico e strutturale.",
-    videoUrl: VIDEOS.restoration,
+    videoUrl: AI_VIDEOS.palazzoLavagna,
     posterUrl: IMG("1513519245088-0e12902e5a38"),
     gallery: [
       IMG("1513519245088-0e12902e5a38"),
@@ -183,7 +187,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Ristrutturazione urbanistica dell'area Ex-Nova Imperia. Masterplan di rigenerazione che reinterpreta il tessuto industriale dismesso con nuove funzioni residenziali, commerciali e spazi pubblici a servizio della città.",
-    videoUrl: VIDEOS.blueprint,
+    videoUrl: AI_VIDEOS.areaExNova,
     posterUrl: IMG("1487958449943-2429e8be8625"),
     gallery: [
       IMG("1487958449943-2429e8be8625"),
@@ -204,7 +208,7 @@ export const projects: Project[] = [
     location: "Pontedassio (IM)",
     description:
       "Realizzazione di complesso produttivo nel Comune di Pontedassio. Progetto incentrato su efficienza distributiva, integrazione paesaggistica e flessibilità degli spazi produttivi.",
-    videoUrl: VIDEOS.modernHouse,
+    videoUrl: AI_VIDEOS.complessoPontedassio,
     posterUrl: IMG("1565008447742-97f6f38c985c"),
     gallery: [
       IMG("1565008447742-97f6f38c985c"),
@@ -225,7 +229,7 @@ export const projects: Project[] = [
     location: "Bardellini, Imperia",
     description:
       "Nuovo alloggio progettato secondo i principi del Life Quality System: ottimizzazione termica, ventilazione naturale, materiali certificati, domotica integrata. Inserimento paesaggistico curato con orientamento solare ottimale.",
-    videoUrl: VIDEOS.building,
+    videoUrl: AI_VIDEOS.alloggioBardellini,
     posterUrl: IMG("1600607687939-ce8a6c25118c"),
     gallery: [
       IMG("1600607687939-ce8a6c25118c"),

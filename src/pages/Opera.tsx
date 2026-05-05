@@ -34,12 +34,6 @@ export default function Opera() {
             >
               <Link to={`/opera/${p.slug}`} className="group block">
                 <div className="relative overflow-hidden aspect-[4/5] bg-surface mb-6">
-                  <img
-                    src={p.posterUrl}
-                    alt={p.title}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
-                  />
                   <video
                     src={p.videoUrl}
                     poster={p.posterUrl}
@@ -48,7 +42,7 @@ export default function Opera() {
                     loop
                     playsInline
                     preload="metadata"
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
                   <div className="absolute top-6 left-6 flex items-center gap-2">
