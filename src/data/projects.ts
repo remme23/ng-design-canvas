@@ -124,7 +124,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Edificio per attività commerciali e direzionali ad Imperia, progettato secondo i principi del Life Quality System. Studio dell'inserimento ambientale tramite fotomontaggi e modellazione tridimensionale, con attenzione a flessibilità degli spazi e sostenibilità.",
-    videoUrl: VIDEOS.cityArch,
+    videoUrl: AI_VIDEOS.edificioCommerciale,
     posterUrl: IMG("1486406146926-c627a92ad1ab"),
     gallery: [
       IMG("1486406146926-c627a92ad1ab"),
@@ -145,7 +145,7 @@ export const projects: Project[] = [
     location: "Porto Maurizio, Imperia",
     description:
       "Ristrutturazione integrale di attico panoramico nel centro storico di Porto Maurizio. Applicazione completa del Life Quality System con domotica, isolamento avanzato e illuminazione progettata. Reinterpretazione contemporanea dello spazio storico.",
-    videoUrl: VIDEOS.interior,
+    videoUrl: AI_VIDEOS.atticoPortoMaurizio,
     posterUrl: IMG("1502672260266-1c1ef2d93688"),
     gallery: [
       IMG("1502672260266-1c1ef2d93688"),
@@ -166,7 +166,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Restauro conservativo di alloggio al piano terra di Palazzo Lavagna. Recupero degli elementi storici originali — volte, pavimenti, decori — coordinato con interventi di adeguamento impiantistico e strutturale.",
-    videoUrl: VIDEOS.restoration,
+    videoUrl: AI_VIDEOS.palazzoLavagna,
     posterUrl: IMG("1513519245088-0e12902e5a38"),
     gallery: [
       IMG("1513519245088-0e12902e5a38"),
@@ -187,7 +187,7 @@ export const projects: Project[] = [
     location: "Imperia",
     description:
       "Ristrutturazione urbanistica dell'area Ex-Nova Imperia. Masterplan di rigenerazione che reinterpreta il tessuto industriale dismesso con nuove funzioni residenziali, commerciali e spazi pubblici a servizio della città.",
-    videoUrl: VIDEOS.blueprint,
+    videoUrl: AI_VIDEOS.areaExNova,
     posterUrl: IMG("1487958449943-2429e8be8625"),
     gallery: [
       IMG("1487958449943-2429e8be8625"),
@@ -208,7 +208,7 @@ export const projects: Project[] = [
     location: "Pontedassio (IM)",
     description:
       "Realizzazione di complesso produttivo nel Comune di Pontedassio. Progetto incentrato su efficienza distributiva, integrazione paesaggistica e flessibilità degli spazi produttivi.",
-    videoUrl: VIDEOS.modernHouse,
+    videoUrl: AI_VIDEOS.complessoPontedassio,
     posterUrl: IMG("1565008447742-97f6f38c985c"),
     gallery: [
       IMG("1565008447742-97f6f38c985c"),
@@ -229,7 +229,7 @@ export const projects: Project[] = [
     location: "Bardellini, Imperia",
     description:
       "Nuovo alloggio progettato secondo i principi del Life Quality System: ottimizzazione termica, ventilazione naturale, materiali certificati, domotica integrata. Inserimento paesaggistico curato con orientamento solare ottimale.",
-    videoUrl: VIDEOS.building,
+    videoUrl: AI_VIDEOS.alloggioBardellini,
     posterUrl: IMG("1600607687939-ce8a6c25118c"),
     gallery: [
       IMG("1600607687939-ce8a6c25118c"),
