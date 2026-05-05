@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 import { ArrowRight, Download } from "lucide-react";
+import studioVideoAsset from "@/assets/video-studio.mp4.asset.json";
 
 export default function Studio() {
   return (
@@ -23,9 +24,14 @@ export default function Studio() {
           <div className="md:col-span-5">
             <Reveal>
               <div className="aspect-[3/4] overflow-hidden bg-surface">
-                <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
-                  alt="Studio NG — interno"
+                <video
+                  src={studioVideoAsset.url}
+                  poster="/frames/studio.jpg"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
                   className="w-full h-full object-cover"
                 />
               </div>
