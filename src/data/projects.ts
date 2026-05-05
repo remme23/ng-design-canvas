@@ -17,33 +17,23 @@ export type Project = {
   lifeQuality: boolean;
 };
 
-// Video AI generati per ogni progetto
-import villaNeolibertyAsset from "@/assets/video-villa-neoliberty.mp4.asset.json";
-import sedeAmatAsset from "@/assets/video-sede-amat.mp4.asset.json";
-import complessoBardelliniAsset from "@/assets/video-complesso-bardellini.mp4.asset.json";
-import edificioCommercialeAsset from "@/assets/video-edificio-commerciale.mp4.asset.json";
-import atticoPortoMaurizioAsset from "@/assets/video-attico-porto-maurizio.mp4.asset.json";
-import palazzoLavagnaAsset from "@/assets/video-palazzo-lavagna.mp4.asset.json";
-import areaExNovaAsset from "@/assets/video-area-ex-nova.mp4.asset.json";
-import complessoPontedassioAsset from "@/assets/video-complesso-pontedassio.mp4.asset.json";
-import alloggioBardelliniAsset from "@/assets/video-alloggio-bardellini.mp4.asset.json";
-import heroAsset from "@/assets/video-hero.mp4.asset.json";
+// Video ottimizzati (720p H.264 faststart, ~1-2 MB ciascuno) serviti da /public/videos
+const V = (name: string) => `/videos/${name}.mp4`;
 
 export const AI_VIDEOS = {
-  villaNeoliberty: villaNeolibertyAsset.url,
-  sedeAmat: sedeAmatAsset.url,
-  complessoBardellini: complessoBardelliniAsset.url,
-  edificioCommerciale: edificioCommercialeAsset.url,
-  atticoPortoMaurizio: atticoPortoMaurizioAsset.url,
-  palazzoLavagna: palazzoLavagnaAsset.url,
-  areaExNova: areaExNovaAsset.url,
-  complessoPontedassio: complessoPontedassioAsset.url,
-  alloggioBardellini: alloggioBardelliniAsset.url,
+  villaNeoliberty: V("villa-neoliberty"),
+  sedeAmat: V("sede-amat"),
+  complessoBardellini: V("complesso-bardellini"),
+  edificioCommerciale: V("edificio-commerciale"),
+  atticoPortoMaurizio: V("attico-porto-maurizio"),
+  palazzoLavagna: V("palazzo-lavagna"),
+  areaExNova: V("area-ex-nova"),
+  complessoPontedassio: V("complesso-pontedassio"),
+  alloggioBardellini: V("alloggio-bardellini"),
 };
 
-// Hero video AI generato (coerente con il resto del sito)
 const VIDEOS = {
-  hero: heroAsset.url,
+  hero: V("hero"),
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
