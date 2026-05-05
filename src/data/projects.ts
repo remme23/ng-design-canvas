@@ -27,6 +27,7 @@ import palazzoLavagnaAsset from "@/assets/video-palazzo-lavagna.mp4.asset.json";
 import areaExNovaAsset from "@/assets/video-area-ex-nova.mp4.asset.json";
 import complessoPontedassioAsset from "@/assets/video-complesso-pontedassio.mp4.asset.json";
 import alloggioBardelliniAsset from "@/assets/video-alloggio-bardellini.mp4.asset.json";
+import heroAsset from "@/assets/video-hero.mp4.asset.json";
 
 export const AI_VIDEOS = {
   villaNeoliberty: villaNeolibertyAsset.url,
@@ -40,9 +41,9 @@ export const AI_VIDEOS = {
   alloggioBardellini: alloggioBardelliniAsset.url,
 };
 
-// Hero stock fallback (Pexels)
+// Hero video AI generato (coerente con il resto del sito)
 const VIDEOS = {
-  cityArch: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
+  hero: heroAsset.url,
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
@@ -250,8 +251,8 @@ export const featuredProjects = [
   projects.find((p) => p.slug === "complesso-residenziale-bardellini")!,
 ];
 
-export const HERO_VIDEO = VIDEOS.cityArch;
-export const HERO_POSTER = IMG("1486325212027-8081e485255e");
+export const HERO_VIDEO = VIDEOS.hero;
+export const HERO_POSTER = "/frames/hero.jpg";
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
