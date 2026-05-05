@@ -63,6 +63,7 @@ export default function AudioManager() {
   const location = useLocation();
   const ctxRef = useRef<AudioContext | null>(null);
   const masterRef = useRef<GainNode | null>(null);
+  const dynRef = useRef<GainNode | null>(null);
   const decksRef = useRef<Deck[]>([]);
   const activeIdxRef = useRef(0);
   const [enabled, setEnabled] = useState(false);
