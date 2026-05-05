@@ -242,7 +242,7 @@ export const featuredProjects = [
 ];
 
 export const HERO_VIDEO = VIDEOS.hero;
-export const HERO_POSTER = "/frames/hero.jpg";
+export const HERO_POSTER = "/frames/hero.webp";
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
