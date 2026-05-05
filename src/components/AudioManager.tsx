@@ -24,6 +24,7 @@ function trackFor(pathname: string) {
 
 const TARGET_VOLUME = 0.18;
 const FADE_SEC = 1.4;
+const INITIAL_FADE_SEC = 3.5; // fade-in più morbido al primo abilitamento
 const MIN_GAIN = 0.0001; // setTargetAtTime non accetta 0
 
 type Deck = {
@@ -62,7 +63,8 @@ export default function AudioManager() {
       (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     const ctx = new Ctx();
     const master = ctx.createGain();
-    master.gain.value = muted ? MIN_GAIN : 1;
+    // Parte sempre da silenzio: la rampa al primo enable rende l'avvio morbido
+    master.gain.value = MIN_GAIN;
     master.connect(ctx.destination);
 
     const decks: Deck[] = [0, 1].map(() => {
@@ -100,6 +102,25 @@ export default function AudioManager() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled]);
+
+  // Fade-in graduale del master al primo enable
+  const firstEnableRef = useRef(true);
+  useEffect(() => {
+    if (!enabled) return;
+    const ctx = ctxRef.current;
+    const master = masterRef.current;
+    if (!ctx || !master) return;
+    if (!firstEnableRef.current) return;
+    firstEnableRef.current = false;
+    const now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(MIN_GAIN, now);
+    // Rampa esponenziale dolce verso il volume finale (rispetta il mute)
+    master.gain.exponentialRampToValueAtTime(
+      muted ? MIN_GAIN : 1,
+      now + INITIAL_FADE_SEC,
+    );
+  }, [enabled, muted]);
 
   // Crossfade su cambio route
   useEffect(() => {
