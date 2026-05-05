@@ -191,12 +191,12 @@ export const projects: Project[] = [
     description:
       "Ristrutturazione urbanistica dell'area Ex-Nova Imperia. Masterplan di rigenerazione che reinterpreta il tessuto industriale dismesso con nuove funzioni residenziali, commerciali e spazi pubblici a servizio della città.",
     videoUrl: AI_VIDEOS.areaExNova,
-    posterUrl: IMG("1487958449943-2429e8be8625"),
+    posterUrl: FRAME("area-ex-nova", 1),
     gallery: [
-      IMG("1487958449943-2429e8be8625"),
-      IMG("1496564203457-11990fbac01b"),
-      IMG("1518709268805-4e9042af2176"),
-      IMG("1581094288338-2314dddb7ece"),
+      FRAME("area-ex-nova", 1),
+      FRAME("area-ex-nova", 2),
+      FRAME("area-ex-nova", 3),
+      FRAME("area-ex-nova", 4),
     ],
     lifeQuality: false,
   },
