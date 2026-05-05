@@ -27,6 +27,7 @@ import palazzoLavagnaAsset from "@/assets/video-palazzo-lavagna.mp4.asset.json";
 import areaExNovaAsset from "@/assets/video-area-ex-nova.mp4.asset.json";
 import complessoPontedassioAsset from "@/assets/video-complesso-pontedassio.mp4.asset.json";
 import alloggioBardelliniAsset from "@/assets/video-alloggio-bardellini.mp4.asset.json";
+import heroAsset from "@/assets/video-hero.mp4.asset.json";
 
 export const AI_VIDEOS = {
   villaNeoliberty: villaNeolibertyAsset.url,
