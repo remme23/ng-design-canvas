@@ -63,7 +63,8 @@ export default function AudioManager() {
       (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     const ctx = new Ctx();
     const master = ctx.createGain();
-    master.gain.value = muted ? MIN_GAIN : 1;
+    // Parte sempre da silenzio: la rampa al primo enable rende l'avvio morbido
+    master.gain.value = MIN_GAIN;
     master.connect(ctx.destination);
 
     const decks: Deck[] = [0, 1].map(() => {
