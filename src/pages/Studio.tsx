@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 import { ArrowRight, Download } from "lucide-react";
+import studioVideoAsset from "@/assets/video-studio.mp4.asset.json";
 
 export default function Studio() {
   return (
