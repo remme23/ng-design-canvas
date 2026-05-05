@@ -170,12 +170,12 @@ export const projects: Project[] = [
     description:
       "Restauro conservativo di alloggio al piano terra di Palazzo Lavagna. Recupero degli elementi storici originali — volte, pavimenti, decori — coordinato con interventi di adeguamento impiantistico e strutturale.",
     videoUrl: AI_VIDEOS.palazzoLavagna,
-    posterUrl: IMG("1513519245088-0e12902e5a38"),
+    posterUrl: FRAME("palazzo-lavagna", 1),
     gallery: [
-      IMG("1513519245088-0e12902e5a38"),
-      IMG("1448630360428-65456885c650"),
-      IMG("1505873242700-f289a29e1e0f"),
-      IMG("1519677100203-a0e668c92439"),
+      FRAME("palazzo-lavagna", 1),
+      FRAME("palazzo-lavagna", 2),
+      FRAME("palazzo-lavagna", 3),
+      FRAME("palazzo-lavagna", 4),
     ],
     lifeQuality: false,
   },
