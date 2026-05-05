@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import AudioManager from "./AudioManager";
 
 export default function AppLayout() {
   const { pathname } = useLocation();
@@ -17,6 +18,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      <AudioManager />
     </div>
   );
 }
