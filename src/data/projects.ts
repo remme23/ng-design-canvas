@@ -251,8 +251,8 @@ export const featuredProjects = [
   projects.find((p) => p.slug === "complesso-residenziale-bardellini")!,
 ];
 
-export const HERO_VIDEO = VIDEOS.cityArch;
-export const HERO_POSTER = IMG("1486325212027-8081e485255e");
+export const HERO_VIDEO = VIDEOS.hero;
+export const HERO_POSTER = "/frames/hero.jpg";
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug);
