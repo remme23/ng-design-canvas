@@ -128,12 +128,12 @@ export const projects: Project[] = [
     description:
       "Edificio per attività commerciali e direzionali ad Imperia, progettato secondo i principi del Life Quality System. Studio dell'inserimento ambientale tramite fotomontaggi e modellazione tridimensionale, con attenzione a flessibilità degli spazi e sostenibilità.",
     videoUrl: AI_VIDEOS.edificioCommerciale,
-    posterUrl: IMG("1486406146926-c627a92ad1ab"),
+    posterUrl: FRAME("edificio-commerciale", 1),
     gallery: [
-      IMG("1486406146926-c627a92ad1ab"),
-      IMG("1497366811353-6870744d04b2"),
-      IMG("1503387762-592deb58ef4e"),
-      IMG("1582407947304-fd86f028f716"),
+      FRAME("edificio-commerciale", 1),
+      FRAME("edificio-commerciale", 2),
+      FRAME("edificio-commerciale", 3),
+      FRAME("edificio-commerciale", 4),
     ],
     lifeQuality: true,
   },
