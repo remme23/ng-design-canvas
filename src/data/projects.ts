@@ -86,12 +86,12 @@ export const projects: Project[] = [
     description:
       "La realizzazione della nuova sede dell'azienda fonda la sua logica attuativa nella volontà di centralizzare le varie strutture prima sparse sul territorio, ottimizzando la gestione operativa. Categoria prevalente OG1, importo lavori 2.856.000 €. Edificio realizzato nel 2011.",
     videoUrl: AI_VIDEOS.sedeAmat,
-    posterUrl: IMG("1497366216548-37526070297c"),
+    posterUrl: FRAME("sede-amat", 1),
     gallery: [
-      IMG("1497366216548-37526070297c"),
-      IMG("1486325212027-8081e485255e"),
-      IMG("1497366754035-f200968a6e72"),
-      IMG("1551038247-3d9af20df552"),
+      FRAME("sede-amat", 1),
+      FRAME("sede-amat", 2),
+      FRAME("sede-amat", 3),
+      FRAME("sede-amat", 4),
     ],
     lifeQuality: false,
   },
