@@ -17,28 +17,32 @@ export type Project = {
   lifeQuality: boolean;
 };
 
-// Video AI generati per progetti specifici
+// Video AI generati per ogni progetto
 import villaNeolibertyAsset from "@/assets/video-villa-neoliberty.mp4.asset.json";
 import sedeAmatAsset from "@/assets/video-sede-amat.mp4.asset.json";
 import complessoBardelliniAsset from "@/assets/video-complesso-bardellini.mp4.asset.json";
+import edificioCommercialeAsset from "@/assets/video-edificio-commerciale.mp4.asset.json";
+import atticoPortoMaurizioAsset from "@/assets/video-attico-porto-maurizio.mp4.asset.json";
+import palazzoLavagnaAsset from "@/assets/video-palazzo-lavagna.mp4.asset.json";
+import areaExNovaAsset from "@/assets/video-area-ex-nova.mp4.asset.json";
+import complessoPontedassioAsset from "@/assets/video-complesso-pontedassio.mp4.asset.json";
+import alloggioBardelliniAsset from "@/assets/video-alloggio-bardellini.mp4.asset.json";
 
 export const AI_VIDEOS = {
   villaNeoliberty: villaNeolibertyAsset.url,
   sedeAmat: sedeAmatAsset.url,
   complessoBardellini: complessoBardelliniAsset.url,
+  edificioCommerciale: edificioCommercialeAsset.url,
+  atticoPortoMaurizio: atticoPortoMaurizioAsset.url,
+  palazzoLavagna: palazzoLavagnaAsset.url,
+  areaExNova: areaExNovaAsset.url,
+  complessoPontedassio: complessoPontedassioAsset.url,
+  alloggioBardellini: alloggioBardelliniAsset.url,
 };
 
-// Pexels architecture footage (free CDN)
+// Hero stock fallback (Pexels)
 const VIDEOS = {
-  building: "https://videos.pexels.com/video-files/3773486/3773486-uhd_2560_1440_30fps.mp4",
-  modernHouse: "https://videos.pexels.com/video-files/4770068/4770068-hd_1920_1080_30fps.mp4",
   cityArch: "https://videos.pexels.com/video-files/3214448/3214448-uhd_2560_1440_25fps.mp4",
-  interior: "https://videos.pexels.com/video-files/7578552/7578552-uhd_2560_1440_30fps.mp4",
-  blueprint: "https://videos.pexels.com/video-files/8961583/8961583-hd_1920_1080_25fps.mp4",
-  glassFacade: "https://videos.pexels.com/video-files/5158602/5158602-uhd_2732_1440_25fps.mp4",
-  villa: "https://videos.pexels.com/video-files/6263099/6263099-uhd_2560_1440_30fps.mp4",
-  construction: "https://videos.pexels.com/video-files/4480534/4480534-uhd_2560_1440_25fps.mp4",
-  restoration: "https://videos.pexels.com/video-files/4763824/4763824-hd_1920_1080_25fps.mp4",
 };
 
 const IMG = (q: string) =>
