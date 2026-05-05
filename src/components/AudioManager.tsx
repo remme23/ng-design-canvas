@@ -172,56 +172,63 @@ export default function AudioManager() {
     const decks = decksRef.current;
     if (!ctx || decks.length < 2) return;
 
-    const next = trackFor(location.pathname);
-    const active = decks[activeIdxRef.current];
-    if (active.currentSrc === next) return;
+    let cancelled = false;
+    let stopTimer: number | undefined;
 
-    const incomingIdx = activeIdxRef.current === 0 ? 1 : 0;
-    const incoming = decks[incomingIdx];
-    const outgoing = active;
+    (async () => {
+      const preferred = trackFor(location.pathname);
+      const next = await resolveSrc(preferred);
+      if (cancelled || !next) return;
 
-    // Carica nuova traccia sul deck inattivo
-    if (incoming.currentSrc !== next) {
-      incoming.el.src = next;
-      incoming.currentSrc = next;
-    }
-    try {
-      incoming.el.currentTime = 0;
-    } catch {
-      /* noop */
-    }
-    const playPromise = incoming.el.play();
-    if (playPromise) playPromise.catch(() => {});
+      const active = decks[activeIdxRef.current];
+      if (active.currentSrc === next) return;
 
-    const now = ctx.currentTime;
-    const target = TARGET_VOLUME;
-    const tau = FADE_SEC / 4; // setTargetAtTime "time constant" (~98% in 4*tau)
+      const incomingIdx = activeIdxRef.current === 0 ? 1 : 0;
+      const incoming = decks[incomingIdx];
+      const outgoing = active;
 
-    // Cancella eventuali rampe in corso e riparte dal valore corrente
-    incoming.gain.gain.cancelScheduledValues(now);
-    outgoing.gain.gain.cancelScheduledValues(now);
-    incoming.gain.gain.setValueAtTime(Math.max(incoming.gain.gain.value, MIN_GAIN), now);
-    outgoing.gain.gain.setValueAtTime(Math.max(outgoing.gain.gain.value, MIN_GAIN), now);
-
-    incoming.gain.gain.setTargetAtTime(target, now, tau);
-    outgoing.gain.gain.setTargetAtTime(MIN_GAIN, now, tau);
-
-    activeIdxRef.current = incomingIdx;
-
-    // Pausa il deck uscente quando il fade è praticamente concluso
-    const stopMs = FADE_SEC * 1000 + 200;
-    const stopTimer = window.setTimeout(() => {
-      // se nel frattempo è tornato attivo (route rapida), non fermarlo
-      if (decks[activeIdxRef.current] !== outgoing) {
-        try {
-          outgoing.el.pause();
-        } catch {
-          /* noop */
-        }
+      if (incoming.currentSrc !== next) {
+        incoming.el.src = next;
+        incoming.currentSrc = next;
       }
-    }, stopMs);
+      try {
+        incoming.el.currentTime = 0;
+      } catch {
+        /* noop */
+      }
+      const playPromise = incoming.el.play();
+      if (playPromise) playPromise.catch(() => {});
 
-    return () => window.clearTimeout(stopTimer);
+      const now = ctx.currentTime;
+      const target = TARGET_VOLUME;
+      const tau = FADE_SEC / 4;
+
+      incoming.gain.gain.cancelScheduledValues(now);
+      outgoing.gain.gain.cancelScheduledValues(now);
+      incoming.gain.gain.setValueAtTime(Math.max(incoming.gain.gain.value, MIN_GAIN), now);
+      outgoing.gain.gain.setValueAtTime(Math.max(outgoing.gain.gain.value, MIN_GAIN), now);
+
+      incoming.gain.gain.setTargetAtTime(target, now, tau);
+      outgoing.gain.gain.setTargetAtTime(MIN_GAIN, now, tau);
+
+      activeIdxRef.current = incomingIdx;
+
+      const stopMs = FADE_SEC * 1000 + 200;
+      stopTimer = window.setTimeout(() => {
+        if (decks[activeIdxRef.current] !== outgoing) {
+          try {
+            outgoing.el.pause();
+          } catch {
+            /* noop */
+          }
+        }
+      }, stopMs);
+    })();
+
+    return () => {
+      cancelled = true;
+      if (stopTimer) window.clearTimeout(stopTimer);
+    };
   }, [enabled, location.pathname]);
 
   // Mute/unmute via master gain (rampa breve, niente click)
