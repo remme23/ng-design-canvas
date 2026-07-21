@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Reveal from "@/components/Reveal";
 import LazyVideo from "@/components/LazyVideo";
 import { ArrowRight, Download } from "lucide-react";
-import studioAsset from "../../public/videos/studio.mp4.asset.json";
 
 export default function Studio() {
   return (
@@ -26,7 +25,7 @@ export default function Studio() {
             <Reveal>
               <div className="relative aspect-[3/4] overflow-hidden bg-surface">
                 <LazyVideo
-                  src={studioAsset.url}
+                  src="/videos/studio.mp4"
                   poster="/frames/studio.webp"
                   className="w-full h-full object-cover"
                 />
