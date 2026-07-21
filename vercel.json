@@ -7,8 +7,8 @@
     { "source": "/project/palazzo-lavagna-restauro-alloggio-piano-terra(/)?", "destination": "/opera/palazzo-lavagna-restauro", "permanent": true },
     { "source": "/project/realizzazione-della-nuova-sede-dellazienda-amat-spa-ad-imperia(/)?", "destination": "/opera/sede-amat-imperia", "permanent": true },
     { "source": "/project/complesso-residenziale-in-localita-bardellini-ad-imperia(/)?", "destination": "/opera/complesso-residenziale-bardellini", "permanent": true },
-    { "source": "/project/:slug*", "destination": "/opera", "permanent": true },
-    { "source": "/ng-studio-associato-2/:slug*", "destination": "/studio", "permanent": true }
+    { "source": "/project(/.*)?", "destination": "/opera", "permanent": true },
+    { "source": "/ng-studio-associato-2(/.*)?", "destination": "/studio", "permanent": true }
   ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
