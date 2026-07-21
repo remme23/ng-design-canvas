@@ -17,32 +17,21 @@ export type Project = {
   lifeQuality: boolean;
 };
 
-// Video 1080p generati con AI, serviti via CDN
-import villaNeolibertyAsset from "../../public/videos/villa-neoliberty.mp4.asset.json";
-import sedeAmatAsset from "../../public/videos/sede-amat.mp4.asset.json";
-import complessoBardelliniAsset from "../../public/videos/complesso-bardellini.mp4.asset.json";
-import edificioCommercialeAsset from "../../public/videos/edificio-commerciale.mp4.asset.json";
-import atticoPortoMaurizioAsset from "../../public/videos/attico-porto-maurizio.mp4.asset.json";
-import palazzoLavagnaAsset from "../../public/videos/palazzo-lavagna.mp4.asset.json";
-import areaExNovaAsset from "../../public/videos/area-ex-nova.mp4.asset.json";
-import complessoPontedassioAsset from "../../public/videos/complesso-pontedassio.mp4.asset.json";
-import alloggioBardelliniAsset from "../../public/videos/alloggio-bardellini.mp4.asset.json";
-import heroAsset from "../../public/videos/hero.mp4.asset.json";
-
+// Video serviti dai file locali in /public/videos (inclusi nel deploy)
 export const AI_VIDEOS = {
-  villaNeoliberty: villaNeolibertyAsset.url,
-  sedeAmat: sedeAmatAsset.url,
-  complessoBardellini: complessoBardelliniAsset.url,
-  edificioCommerciale: edificioCommercialeAsset.url,
-  atticoPortoMaurizio: atticoPortoMaurizioAsset.url,
-  palazzoLavagna: palazzoLavagnaAsset.url,
-  areaExNova: areaExNovaAsset.url,
-  complessoPontedassio: complessoPontedassioAsset.url,
-  alloggioBardellini: alloggioBardelliniAsset.url,
+  villaNeoliberty: "/videos/villa-neoliberty.mp4",
+  sedeAmat: "/videos/sede-amat.mp4",
+  complessoBardellini: "/videos/complesso-bardellini.mp4",
+  edificioCommerciale: "/videos/edificio-commerciale.mp4",
+  atticoPortoMaurizio: "/videos/attico-porto-maurizio.mp4",
+  palazzoLavagna: "/videos/palazzo-lavagna.mp4",
+  areaExNova: "/videos/area-ex-nova.mp4",
+  complessoPontedassio: "/videos/complesso-pontedassio.mp4",
+  alloggioBardellini: "/videos/alloggio-bardellini.mp4",
 };
 
 const VIDEOS = {
-  hero: heroAsset.url,
+  hero: "/videos/hero.mp4",
 };
 
 // Frame estratti dai video AI - garantiscono coerenza visiva con il video
