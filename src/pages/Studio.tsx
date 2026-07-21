@@ -74,9 +74,10 @@ export default function Studio() {
             </Reveal>
             <Reveal delay={0.4}>
               <a
-                href="http://www.ngstudioassociato.com/wp-content/uploads/2015/02/CURRICULUM-VITAE-20151.pdf"
+                href="/curriculum-ng-studio-associato.pdf"
                 target="_blank"
                 rel="noopener"
+                download
                 className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-gold hover-underline"
               >
                 <Download size={16} /> Scarica il Curriculum
