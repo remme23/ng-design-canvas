@@ -26,6 +26,7 @@ export default function ProjectDetail() {
       <section ref={heroRef} className="relative h-screen w-full overflow-hidden">
         <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="absolute inset-0">
           <video
+            key={project.slug}
             autoPlay
             muted
             loop
